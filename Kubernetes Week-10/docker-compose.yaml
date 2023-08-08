@@ -1,0 +1,29 @@
+version: '3'
+# Backend services
+services:
+  backend:
+    tty: true
+    image: protus/backend:1.0.0
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      MONGODB_URI: 'mongodb+srv://toloih:0724311334.@htcluster.ltzaolu.mongodb.net/?retryWrites=true&w=majority'
+    volumes:
+      - elevate:/data/db
+
+   
+  # Frontend services
+  client:
+    tty: true
+    image: protus/client:1.0.0
+    ports:
+      - "3000:3000"    
+    depends_on:
+      - backend
+   
+    volumes:
+      - elevate:/data/db
+
+volumes:
+ elevate: {}
